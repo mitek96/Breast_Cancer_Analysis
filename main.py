@@ -52,3 +52,19 @@ color_function = {0: "blue", 1: "red"}  # Czerwony to złośliwy, niebieski Here
 colors = data["diagnosis"].map(lambda x: color_function.get(x))  # mapping the color fuction with diagnosis column
 pd.plotting.scatter_matrix(data[features_mean], c=colors, alpha=0.5, figsize=(15, 15))  # plotting scatter plot matrix
 plt.savefig('matrix.png')
+
+# Wprowadzenie nowych danych pacjenta
+tex_mean = input("texture_mean=")
+per_mean = input("perimeter_mean=")
+smo_mean = input("smoothness_mean=")
+com_mean = input("compactness_mean=")
+sym_mean = input("symmetry_mean")
+
+single_data = test[prediction_var]
+single_data = single_data[0:0]
+single_data = single_data.append(
+    pandas.Series([tex_mean, per_mean, smo_mean, com_mean, sym_mean], index=single_data.columns), ignore_index=True)
+
+prediction_single = model.predict(single_data)
+prediction_single = 'M' if 1 else 'B'
+print(prediction_single)
